@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Restaurant Guide Login{% endblock %}
+
+{% block body %}
+
+  <p>Sign In</p>
+  <p>New to Reataurant Guide? <a href="/sign-up" id="red-signup">Sign Up</a></p>
+
+  <form action="/all-restaurants" method="POST">
+    <p>
+      <lable for="email-login">Email</lable><br>
+      <input type="text" name="email" id="email-login">
+    </p>
+
+    <p>
+      <lable for="password-login">Password</lable><br>
+      <input type="text" name="password" id="password-login">
+    </p>
+
+    <p>
+      <input type="submit" value="Sign In" id="signin-button">
+    </p>
+  </form>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Search Restaurant Online | Restaurant Review App | Restaurant Guide{% endblock %}
+
+{% block body %}
+
+  <div>
+    Restaurant Guide
+    <a href="/sign-in" id="signin">Sign In</a>
+    <a href="/sign-up" id="signup">Sign Up</a>
+  </div>
+
+  <h2>Find it, try it and review it</h2>
+  
+
+  <form action="/restaurants-by-zipcode">
+    <p>
+      <input type="text" name="zipcode" placeholder="zipcode">
+    </p>
+
+    <p>
+      <input type="submit", value="Find Food">
+    </p>
+  </form>
+
+  <a href="/sign-in">Sign in to see more..</a>
+
+{% endblock %}
