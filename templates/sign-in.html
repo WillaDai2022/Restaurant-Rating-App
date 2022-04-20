@@ -4,16 +4,16 @@
 {% block body %}
 
   <p>Sign In</p>
-  <p>New to Reataurant Guide? <a href="/sign-up" id="red-signup">Sign Up</a></p>
+  <p>New to Reataurant Guide? <a href="/sign_up" id="red-signup">Sign Up</a></p>
 
-  <form action="/all-restaurants" method="POST">
+  <form action="/sign_in" method="POST">
     <p>
-      <lable for="email-login">Email</lable><br>
+      <label for="email-login">Email</label><br>
       <input type="text" name="email" id="email-login">
     </p>
 
     <p>
-      <lable for="password-login">Password</lable><br>
+      <label for="password-login">Password</label><br>
       <input type="text" name="password" id="password-login">
     </p>
 
@@ -21,5 +21,9 @@
       <input type="submit" value="Sign In" id="signin-button">
     </p>
   </form>
-
+  {% for msg in get_flashed_messages() %}
+  <p class="flash-msg">
+    {{ msg }}
+  </p>
+  {% endfor %}
 {% endblock %}

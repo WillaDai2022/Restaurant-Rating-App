@@ -1,7 +1,7 @@
-from flask import (Flask, render_template, request, flash, session,
-                   redirect)
-from model import connect_to_db, db, User, Restaurant, Rating
+from flask import (Flask, render_template, request, flash, session, redirect)
+from model import connect_to_db, db, User, Rating
 import crud
+import time
 from jinja2 import StrictUndefined
 
 app = Flask(__name__)
@@ -15,30 +15,43 @@ def homepage():
 
     return render_template("homepage.html")
 
-@app.route("/sign-in")
+@app.route("/sign_in")
 def sign_in():
     """User login page"""
 
     return render_template("sign-in.html")
 
 
-@app.route("/login", methods=["POST"])
+@app.route("/sign_in", methods=["POST"])
 def process_login():
     """Process user login."""
 
     email = request.form.get("email")
     password = request.form.get("password")
 
+    print(email)
+    print(password)
+
     user = crud.get_user_by_email(email)
 
     if not user or user.password != password:
-        flash("The email or password you entered was incorrect.")
+        flash("Unable to login with this email address and password. Check your login information and try again.")
+        return redirect("/sign_in")
     else:
         # Log in user by storing the user's email in session
         session["user_email"] = user.email
         flash(f"Welcome back, {user.email}!")
+        time.sleep(2)
+        return render_template("all-restaurants.html")
 
-    return redirect("/")
+
+@app.route("/sign_up")
+def sign_up():
+    """User sign up page"""
+
+    return render_template("sign-up.html")
+
+    
 
 
 
