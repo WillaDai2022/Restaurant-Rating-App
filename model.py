@@ -11,7 +11,6 @@ class User(db.Model):
     __tabalename__ = "user"
 
     user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    user_name = db.Column(db.String(50), nullable=False)
     password = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=False)
     phone = db.Column(db.String(12), nullable=False)
@@ -19,31 +18,36 @@ class User(db.Model):
     lname = db.Column(db.String(50), nullable=False)
 
     ratings = db.relationship("Rating", back_populates="user")
+    fav_rests = db.relationship("Fav_rest", back_populates="user")
 
     def __repr__(self):
         "Show user_id and user_name"
 
-        return f"<user_id: {self.user_id} user_name: {self.user_name}>"
+        return f"<user_id: {self.user_id} user_name: {self.fname} {self.lname}>"
 
+class Fav_rest(db.Model):
+    """User's favorite restaurant -- associate table"""
 
-# class Restaurant(db.Model):
-#     """A restaurent"""
+    __tablename__ = "fav_rest"
 
-#     __tablename__ = "restaurant"
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"), nullable=False)
+    restaurant_id = db.Column(db.Integer, db.ForeignKey("restaurant.restaurant_id"), nullable=False)
 
-#     restaurant_id = db.Column(db.Integer,primary_key=True, autoincrement=True)
-#     yelp_id = db.Column(db.String(), nullable=False)
-#     name = db.Column(db.String(), nullable=False)
-#     address = db.Column(db.String(), nullable=False)
-#     phone = db.Column(db.String(12), nullable=False)
-#     review_count = db.Column(db.Integer, nullable=False)
-#     price_range = db.Column(db.Integer, nullable=False)
-#     category = db.Column(db.String,nullable=False)
-#     dietary = db.Column(db.String)
-#     picture = db.Column(db.Text,nullable=False)
+    user = db.relationship("User", back_populates="fav_rests")
+    restaurant = db.relationship("Restaurant", back_populates="fav_rests")
+    
+class Restaurant(db.Model):
+    """A restaurent"""
 
-#     ratings = db.relationship("Rating", back_populates="restaurant")
+    __tablename__ = "restaurant"
 
+    restaurant_id = db.Column(db.Integer,primary_key=True, autoincrement=True)
+    yelp_id = db.Column(db.String(), nullable=False)
+    name = db.Column(db.String(), nullable=False)
+
+    ratings = db.relationship("Rating", back_populates="restaurant")
+    fav_rests = db.relationship("Fav_rest", back_populates="restaurant")
 
 class Rating(db.Model):
     """A restaurant rating"""
@@ -56,10 +60,10 @@ class Rating(db.Model):
     score = db.Column(db.Integer, nullable=False)
     review = db.Column(db.Text)
     user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"), nullable=False)
-    restaurant_id = db.Column(db.String)
+    restaurant_id = db.Column(db.Integer, db.ForeignKey("restaurant.restaurant_id"), nullable=False)
 
     user = db.relationship("User", back_populates="ratings")
-    # restaurant = db.relationship("Restaurant", back_populates="ratings")
+    restaurant = db.relationship("Restaurant", back_populates="ratings")
 
 
 def connect_to_db(flask_app, db_uri="postgresql:///restaurant_guide", echo=True):

@@ -1,0 +1,66 @@
+[
+    {
+        "user_name": "d_j",
+        "password": "12345678",
+        "email": "donald_johnson@gmail.com",
+        "phone": "980-234-1343",
+        "fname": "Donald",
+        "lname": "Johnson"
+    },
+    {
+        "user_name": "v_e",
+        "password": "12345678",
+        "email": "Vernice@gmail.com",
+        "phone": "980-257-5643",
+        "fname": "Vernice",
+        "lname": "Edwards"
+    },
+    {
+        "user_name": "JHR",
+        "password": "12345678",
+        "email": "Jane@gmail.com",
+        "phone": "980-258-5343",
+        "fname": "Jane",
+        "lname": "Roberson"
+    },
+    {
+        "user_name": "Andrew_M",
+        "password": "12345678",
+        "email": "andrew@gmail.com",
+        "phone": "980-111-5343",
+        "fname": "Andrew",
+        "lname": "McDowell"
+    },
+    {
+        "user_name": "Iona",
+        "password": "12345678",
+        "email": "Iona@gmail.com",
+        "phone": "980-121-5343",
+        "fname": "Iona",
+        "lname": "Love"
+    },
+    {
+        "user_name": "M_G",
+        "password": "12345678",
+        "email": "Mark@gmail.com",
+        "phone": "980-348-5343",
+        "fname": "Mark",
+        "lname": "Gardner"
+    },
+    {
+        "user_name": "M_G",
+        "password": "12345678",
+        "email": "Mark@gmail.com",
+        "phone": "980-348-5343",
+        "fname": "Mark",
+        "lname": "Gardner"
+    },
+    {
+        "user_name": "T_R",
+        "password": "12345678",
+        "email": "Tom@gmail.com",
+        "phone": "980-348-5097",
+        "fname": "Tom",
+        "lname": "Rice"
+    }
+]

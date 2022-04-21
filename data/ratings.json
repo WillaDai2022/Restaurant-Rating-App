@@ -1,0 +1,50 @@
+[
+    {   
+        "title": "Dinner with family",
+        "pic": "https://media.istockphoto.com/photos/fish-and-chips-picture-id950368628",
+        "score": 4,
+        "review": "Great atmosphere, food, and service by our waiter, Marcus!! Little wait time on a Saturday night and perfect spot to catch up with some old friends.",
+        "user_id": 1,
+        "restaurant_id": 1
+    },
+    {   
+        "title": "Great Night Out",
+        "pic": "https://media.istockphoto.com/photos/fish-and-chips-picture-id950368628",
+        "score": 5,
+        "review": "Great atmosphere, food, and service by our waiter, Marcus!! Little wait time on a Saturday night and perfect spot to catch up with some old friends.",
+        "user_id": 2,
+        "restaurant_id": 2
+    },
+    {   
+        "title": "Weekends can be very crowded!",
+        "pic": "https://media.istockphoto.com/photos/fish-and-chips-picture-id950368628",
+        "score": 1,
+        "review": " I order a drink and the fish taco special: the fish still had paper wrapper on it and tasted like week old Tillapia, and the salad was certainly from a bag. Avoid this place!",
+        "user_id": 3,
+        "restaurant_id": 3
+    },
+    {   
+        "title": "Just...okay?",
+        "pic": "https://media.istockphoto.com/photos/fish-and-chips-picture-id950368628",
+        "score": 3,
+        "review": "Wasn’t worth the price. Underwhelming considering it’s ranking on TripAdvisor. Also they don’t allow happy hour at the tables which is pretty lame.",
+        "user_id": 4,
+        "restaurant_id": 4
+    },
+    {   
+        "title": "Fun vibes and great food!",
+        "pic": "https://media.istockphoto.com/photos/fish-and-chips-picture-id950368628",
+        "score": 5,
+        "review": "We enjoyed a great family dinner here. Food was delicious, our server (Marcus) was very helpful with menu suggestions, and responsive to special needs (kids with us). Social distancing maintained and outdoor seating available.",
+        "user_id": 5,
+        "restaurant_id": 5
+    },
+    {   
+        "title": "Nothing special",
+        "pic": "https://media.istockphoto.com/photos/fish-and-chips-picture-id950368628",
+        "score": 3,
+        "review": "Great atmosphere, food, and service by our waiter, Marcus!! Little wait time on a Saturday night and perfect spot to catch up with some old friends.",
+        "user_id": 6,
+        "restaurant_id": 6
+    }
+]

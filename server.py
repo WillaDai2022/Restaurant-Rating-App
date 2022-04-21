@@ -1,8 +1,9 @@
 from flask import (Flask, render_template, request, flash, session, redirect)
 from model import connect_to_db, db, User, Rating
 import crud
-import time
 from jinja2 import StrictUndefined
+import requests
+import json,os
 
 app = Flask(__name__)
 app.secret_key = "dev"
@@ -41,7 +42,6 @@ def process_login():
         # Log in user by storing the user's email in session
         session["user_email"] = user.email
         flash(f"Welcome back, {user.email}!")
-        time.sleep(2)
         return render_template("all-restaurants.html")
 
 
@@ -51,47 +51,64 @@ def sign_up():
 
     return render_template("sign-up.html")
 
-    
+
+@app.route("/sign_up", methods=["POST"])
+def process_sign_up():
+    """Create a new user"""
+
+    email = request.form.get("email")
+    password = request.form.get("password")
+    fname = request.form.get("fname")
+    lname = request.form.get("lname")
+    phone = request.form.get("phone")
 
 
+    user1 = crud.get_user_by_email(email)
+    user2 = crud.get_user_by_phone(phone)
+
+    if user1:
+        flash("An account is already associated with this email. Sign in to get started.")
+    elif user2:
+        flash("Mobile number already exists. Please try again with another one")
+    elif phone and len(phone) != 10:
+        flash("Phone number is of invalid format")
+    elif password and len(password) < 8:
+        flash("Password must contain at least 8 characters.")
+    else:
+        new_user = crud.create_user(email, password, phone, fname, lname)
+        db.session.add(new_user)
+        db.session.commit()
+        flash("Your account was created successfully and you can now log in.")
+
+    return redirect("/sign_up")
+
+@app.route("/all_restaurants")
+def show_all_restaurants():
+    """Show 50 restaurants"""
+
+    url = "https://api.yelp.com/v3/businesses/search"
+    parameters = {
+        "term" : "restaurants",
+        "radius": "5000",
+        "limit": 50,
+        "location": 28226
+    }
+
+    yelp_key = os.environ("YELP_KEY")
+    headers = {'Authorization': 'Bearer %s' % yelp_key}
+
+    restaurants = requests.get(url, params=parameters, headers=headers)
+
+    return render_template("all-rests.html", rests=restaurants)
 
 
 # @app.route("/users", methods = ["post"])
 # def register_user():
 #     """Create a new user"""
 
-#     email = request.form.get("email")
-#     password = request.form.get("password")
+#    
 
-#     user = crud.get_user_by_email(email)
 
-#     if user:
-#         flash("Email address already exists. Please try again with another email address!")
-#     else:
-#         new_user = crud.create_user(email, password)
-#         db.session.add(new_user)
-#         db.session.commit()
-#         flash("Your account was created successfully and you can now log in.")
-
-#     return redirect("/")
-
-# @app.route("/login", methods=["POST"])
-# def process_login():
-#     """Process user login."""
-
-#     email = request.form.get("email")
-#     password = request.form.get("password")
-
-#     user = crud.get_user_by_email(email)
-
-#     if not user or user.password != password:
-#         flash("The email or password you entered was incorrect.")
-#     else:
-#         # Log in user by storing the user's email in session
-#         session["user_email"] = user.email
-#         flash(f"Welcome back, {user.email}!")
-
-#     return redirect("/")
 
 # @app.route("/")
 # def show_all_movies():

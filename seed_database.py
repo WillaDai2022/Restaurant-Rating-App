@@ -37,9 +37,6 @@ model.db.session.add_all(users_in_db)
 model.db.session.commit()
 
 
-
-
-
 #create ratings for the user
 with open("data/users.json") as f:
     ratings_data = json.loads(f.read())

@@ -3,10 +3,10 @@
 from model import db, User, Rating, connect_to_db
 
 
-def create_user(email, user_name, password, phone, fname, lname):
+def create_user(email, password, phone, fname, lname):
     """Create and return a new user."""
 
-    user = User(email=email, user_name=user_name, password=password, phone=phone, fname=fname, lname=lname)
+    user = User(email=email, password=password, phone=phone, fname=fname, lname=lname)
 
     return user
 
@@ -27,6 +27,11 @@ def get_user_by_email(email):
     """Return a user by email."""
 
     return User.query.filter(User.email == email).first()
+
+def get_user_by_phone(phone):
+    """Return a user by phone number"""
+
+    return User.query.filter(User.phone == phone).first()
 
 
 # def create_restaurant(yelp_id, name, address, phone, review_count, price_range,
