@@ -1,4 +1,4 @@
-from flask import (Flask, render_template, request, flash, session, redirect)
+from flask import (Flask, render_template, request, flash, session, redirect, jsonify)
 from model import connect_to_db, db, User, Rating
 import crud
 from jinja2 import StrictUndefined
@@ -23,9 +23,9 @@ def sign_in():
     return render_template("sign-in.html")
 
 
-@app.route("/sign_in", methods=["POST"])
+@app.route("/all_rests", methods=["POST"])
 def process_login():
-    """Process user login."""
+    """Process user login and show 10 restaurants"""
 
     email = request.form.get("email")
     password = request.form.get("password")
@@ -41,8 +41,8 @@ def process_login():
     else:
         # Log in user by storing the user's email in session
         session["user_email"] = user.email
-        flash(f"Welcome back, {user.email}!")
-        return render_template("all-restaurants.html")
+        flash(f"Welcome back, {user.fname} {user.lname}!")
+        return render_template("all-rests.html")
 
 
 @app.route("/sign_up")
@@ -82,24 +82,36 @@ def process_sign_up():
 
     return redirect("/sign_up")
 
-@app.route("/all_restaurants")
-def show_all_restaurants():
-    """Show 50 restaurants"""
 
+@app.route("/get_restaurants")
+def get_rests_info():
+    """Get restaurant info from Yelp API(default location Charlotte, NC 28226)"""
+
+    #define the endpoint, API key and the header
     url = "https://api.yelp.com/v3/businesses/search"
+    yelp_key = os.environ.get("YELP_KEY")
+    HEADERS = {"Authorization": "bearer %s" % yelp_key}
+
+    location = request.args.get("location")
+    print (location)
+    
+    if not location:
+        location = "28226"
+
+    #define the parameters
     parameters = {
         "term" : "restaurants",
         "radius": "5000",
-        "limit": 50,
-        "location": 28226
+        "limit": "10",
+        "location": location
     }
 
-    yelp_key = os.environ("YELP_KEY")
-    headers = {'Authorization': 'Bearer %s' % yelp_key}
+    restaurants = requests.get(url, params=parameters, headers=HEADERS).json()
 
-    restaurants = requests.get(url, params=parameters, headers=headers)
+    return(restaurants)
 
-    return render_template("all-rests.html", rests=restaurants)
+
+
 
 
 # @app.route("/users", methods = ["post"])

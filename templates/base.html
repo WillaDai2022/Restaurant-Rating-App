@@ -8,7 +8,7 @@
     {% block title %}{% endblock %}
   </title>
 
-  {% block head %}{% endblock %}
+  {% block head %} <link rel="stylesheet" href="/static/css/style.css">{% endblock %}
 </head>
 
 <body>
@@ -16,13 +16,8 @@
   {% block body %}{% endblock %}
 
   {% block after_body %}{% endblock %}
-
-  {% for msg in get_flashed_messages() %}
-    <p class="flash-msg">
-      {{ msg }}
-    </p>
-  {% endfor %}
   
 </body>
 
 </html>
+

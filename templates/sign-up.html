@@ -42,5 +42,9 @@
     </div>
   </div>
 
-
+  {% for msg in get_flashed_messages() %}
+  <p class="flash-msg">
+    {{ msg }}
+  </p>
+  {% endfor %}
 {% endblock %}

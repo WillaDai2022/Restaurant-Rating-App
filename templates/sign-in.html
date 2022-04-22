@@ -8,7 +8,7 @@
 
   <div class="outer-box">
     <div class="inner-box">
-      <form action="/sign_in" method="POST">
+      <form action="/all_rests" method="POST">
         <div>
           <label for="email-login">Email</label><br>
           <input type="text" name="email" id="email-login">
@@ -23,5 +23,11 @@
       </form>
     </div>
   </div>
+
+  {% for msg in get_flashed_messages() %}
+  <p class="flash-msg">
+    {{ msg }}
+  </p>
+{% endfor %}
     
 {% endblock %}
