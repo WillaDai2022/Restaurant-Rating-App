@@ -12,7 +12,7 @@
   <h2>Find it, try it and review it</h2>
   
 
-  <form action="/get_restaurants">
+  <form id="home-where-to" action="/get_restaurants.json">
     <p>
       <input type="text" name="location" placeholder="Where to?">
     </p>
@@ -24,4 +24,11 @@
 
   <a href="/sign_in">Sign in to see more..</a>
 
+  <div id="listing-grids">       
+  </div> 
+
+{% endblock %}
+
+{% block after_body%}
+<script src="/static/js/showAllRests.js"></script>
 {% endblock %}

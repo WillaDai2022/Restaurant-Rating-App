@@ -5,22 +5,19 @@
         <div class="header">
             <div class="logo" class="header-option">Restaurant<span id="greenGuide">Guide</span> </div>
             <div class="header-option">Charlotte</div>
-            <form id="home-where-to">
+            <form action="/get_restaurants">
                 <input type="text" name="location" placeholder="Where to?">
                 <button type="submit">Go</button>
             </form>
         </div>
 
-        {% for msg in get_flashed_messages() %}
-        <p class="flash-msg">
-            {{ msg }}
-        </p>
-        {% endfor %}
+    <div id="rest-info">
+      
         
-
-    <div id="listing-grids">
     </div> 
 
-    <script src="/static/js/showAllRests.js"></script>
-{% endblock %}
+    <div id="rest-reviews">
 
+    </div>
+    <script src="/static/js/showRestDetails.js"></script>
+{% endblock %}

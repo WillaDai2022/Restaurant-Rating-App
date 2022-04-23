@@ -83,18 +83,19 @@ def process_sign_up():
     return redirect("/sign_up")
 
 
-@app.route("/get_restaurants")
+@app.route("/get_restaurants.json")
 def get_rests_info():
     """Get restaurant info from Yelp API(default location Charlotte, NC 28226)"""
 
     #define the endpoint, API key and the header
     url = "https://api.yelp.com/v3/businesses/search"
     yelp_key = os.environ.get("YELP_KEY")
-    HEADERS = {"Authorization": "bearer %s" % yelp_key}
+    HEADERS = {"Authorization": "Bearer %s" % yelp_key}
 
     location = request.args.get("location")
-    print (location)
-    
+  
+    print(location)
+
     if not location:
         location = "28226"
 
@@ -108,9 +109,25 @@ def get_rests_info():
 
     restaurants = requests.get(url, params=parameters, headers=HEADERS).json()
 
-    return(restaurants)
+    return restaurants
 
+@app.route("/rest_details/<yelp_id>", methods=["POST"])
+def show_restaurant_details():
 
+@app.route("/rest_details/<yelp_id>")
+def get_restaurant_details(yelp_id):
+    """Show details of a restaurant""" 
+    url = "https://api.yelp.com/v3/businesses/"
+    yelp_key = os.environ.get("YELP_KEY")
+    HEADERS = {"Authorization": "Bearer %s" % yelp_key}
+
+    rest = requests.get(f"{url}{yelp_id}", headers=HEADERS).json()
+    print("******************************")
+    print(rest)
+    rest = requests.get(f"{url}{yelp_id}", headers=HEADERS).json()
+
+    
+    return render_template("rest-details.html", rest = rest)
 
 
 
